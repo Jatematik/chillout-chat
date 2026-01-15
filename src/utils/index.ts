@@ -1,0 +1,1 @@
+export { iconColors } from "./colors";
