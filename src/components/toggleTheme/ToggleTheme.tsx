@@ -13,7 +13,7 @@ export const ToggleTheme = () => {
 
   return (
     <button
-      className="h-20 w-10 cursor-pointer flex flex-col rounded-4xl items-center justify-between bg-slate-400 dark:bg-slate-900 p-1.5 gap-2.5 relative z-20"
+      className="hidden h-20 w-10 cursor-pointer md:flex flex-col rounded-4xl items-center justify-between bg-slate-400 dark:bg-slate-900 p-1.5 gap-2.5 relative z-20"
       onClick={toggleTheme}
     >
       <FaSun
@@ -37,7 +37,7 @@ export const ToggleTheme = () => {
           [
             safeTheme === "light" && ["top-0.5", "bg-slate-200"],
             safeTheme === "dark" && ["top-10.5", "bg-slate-500"],
-          ]
+          ],
         )}
       ></div>
     </button>

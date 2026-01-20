@@ -18,12 +18,12 @@ export const Message: FC<MessageProps> = ({ isOwner, text }) => {
         },
         {
           "justify-start": !isOwner,
-        }
+        },
       )}
     >
       {isOwner ? (
         <div className="flex gap-2 items-end basis-2/3 justify-end">
-          <p className="bg-blue-400 rounded-xl p-2 text-slate-50">{text}</p>
+          <p className="bg-gray-300 rounded-xl p-2 text-slate-950">{text}</p>
           <div className="h-12 w-12 rounded-full relative ">
             <FaCircleUser size={48} />
           </div>
@@ -33,7 +33,7 @@ export const Message: FC<MessageProps> = ({ isOwner, text }) => {
           <div className="h-12 w-12 rounded-full relative ">
             <FaCircleUser size={48} />
           </div>
-          <p className="bg-blue-400 rounded-xl p-2 text-slate-50">{text}</p>
+          <p className="bg-blue-300 rounded-xl p-2 text-slate-950">{text}</p>
         </div>
       )}
     </div>

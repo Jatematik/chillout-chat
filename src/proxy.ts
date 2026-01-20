@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import admin from "./lib/firebase.admin";
 
-// 1. Specify protected and public routes
 const protectedRoutes = ["/", "/chat", /^\/chat\/.+$/];
 const publicRoutes = ["/login", "/signup"];
 
 export default async function proxy(req: NextRequest) {
-  // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname;
-  // const isProtectedRoute = protectedRoutes.includes(path);
   const isProtectedRoute = protectedRoutes.some((route) => {
     if (typeof route === "string") {
       return path === route;
@@ -19,29 +16,23 @@ export default async function proxy(req: NextRequest) {
   });
   const isPublicRoute = publicRoutes.includes(path);
 
-  console.log(protectedRoutes.includes(path), path);
+  const token = req.cookies.get("session")?.value;
+  let user = null;
 
-  // 3. Decrypt the session from the cookie
-  const user = true;
-  //   const cookie = (await cookies()).get('session')?.value
-  //   const session = await decrypt(cookie)
+  if (token) {
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      user = decodedToken; // содержит uid, email и т.д.
+    } catch (error) {
+      console.error("Token verification failed:", error);
+    }
+  }
 
-  // 4. Redirect to /login if the user is not authenticated
-  if (
-    isProtectedRoute &&
-    !user
-    // !session?.userId
-  ) {
+  if (isProtectedRoute && !user) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  // 5. Redirect to /dashboard if the user is authenticated
-  if (
-    isPublicRoute &&
-    user &&
-    // session?.userId &&
-    !req.nextUrl.pathname.startsWith("/")
-  ) {
+  if (isPublicRoute && user && !req.nextUrl.pathname.startsWith("/")) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }
 

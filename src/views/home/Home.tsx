@@ -1,6 +1,19 @@
+import { mainBgColor } from "@/utils/colors";
+import clsx from "clsx";
+
 export const Home = () => {
   return (
-    <div className="h-dvh grow flex items-center justify-center bg-linear-to-r from-red-200 to-yellow-200 dark:from-blue-200">
+    <div
+      className={clsx(
+        "hidden",
+        "h-dvh",
+        "grow",
+        "md:flex",
+        "items-center",
+        "justify-center",
+        mainBgColor,
+      )}
+    >
       <p className="text-xl">Choose who you would like to write to</p>
     </div>
   );
