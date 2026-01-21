@@ -94,7 +94,10 @@ export const Navbar = () => {
 
         <ul className={clsx("flex md:flex-col md:gap-5", "flex-row gap-2.5")}>
           {routes.map((route) => (
-            <li key={route.title} className="px-2.5 flex">
+            <li
+              key={route.title}
+              className="px-2.5 flex items-center justify-center"
+            >
               <Link
                 href={route.path}
                 className="flex flex-col justify-center items-center gap-1"

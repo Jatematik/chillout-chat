@@ -22,7 +22,7 @@ export default async function proxy(req: NextRequest) {
   if (token) {
     try {
       const decodedToken = await admin.auth().verifyIdToken(token);
-      user = decodedToken; // содержит uid, email и т.д.
+      user = decodedToken;
     } catch (error) {
       console.error("Token verification failed:", error);
     }
@@ -41,5 +41,5 @@ export default async function proxy(req: NextRequest) {
 
 // Routes Proxy should not run on
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$|sw\\.js).*)"],
 };
